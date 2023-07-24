@@ -1,0 +1,22 @@
+﻿@page "/categoria/editar/{id:int}"
+
+
+<div class="container">
+    <div class="row mb-3">
+        <RadzenBreadCrumb>
+            <Template Context="item">
+                <RadzenBadge Text="@item.Text" IsPill="true" />
+            </Template>
+            <ChildContent>
+                <RadzenBreadCrumbItem Path="/" Text="Inicio" />
+                <RadzenBreadCrumbItem Path="/categoria" Text="Categoria" />
+                <RadzenBreadCrumbItem Path="/categoria/Editar" Text="Editar" />
+            </ChildContent>
+        </RadzenBreadCrumb>
+    </div>
+
+    <FormCategoria Categoria="@categoria" Retorno="(() => Voltar())" Titulo="Editar Categoria" SubmitCategoria="(() => EditarCategoria())" />
+
+</div>
+
+

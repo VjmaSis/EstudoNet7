@@ -1,0 +1,53 @@
+﻿<EditForm Model="@Produto" OnValidSubmit="@SubmitProduto">
+    <DataAnnotationsValidator />
+    <RadzenCard>
+        <div class="row">
+            <h3>@Titulo</h3>
+        </div>
+        <div class="row">
+            <div class="mb-3">
+                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">Nome</RadzenText>
+                <RadzenTextBox @bind-Value="@Produto.Nome" id="nome" class="form-control" />
+                <ValidationMessage For="@(() => Produto.Nome)" />
+
+            </div>
+            <div class="mb-3">
+                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">Detalhes do Produto</RadzenText>
+                <RadzenTextBox @bind-Value="@Produto.Detalhe" id="descricao" class="form-control" />
+                <ValidationMessage For="@(() => Produto.Detalhe)" />
+            </div>
+            <div class="mb-3">
+                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">Categoria do Produto</RadzenText>
+                <RadzenDropDown @bind-Value=@Produto.CategoriaId Data="@Categorias" TextProperty="Nome" ValueProperty="Id" />
+                <ValidationMessage For="@(() => Produto.CategoriaId)" />
+            </div>
+            <div class="mb-3">
+                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">Valor do Produto</RadzenText>
+                <RadzenNumeric TValue="decimal" Format="c" @bind-Value="@Produto.Preco" />
+                <ValidationMessage For="@(() => Produto.Preco)" />
+            </div>
+            <div class="row px-3">
+                <div class="col-lg-6 offset-lg-3 p-3">
+                    <RadzenCard>
+                        <h4 class="mb-4">Foto produto</h4>
+                        <RadzenFileInput @bind-Value=@Produto.ImagemBase64 @bind-FileName=@fileName @bind-FileSize=@fileSize TValue="string" class="w-100"
+                                         Change=@(args => OnChange(args, "FileInput")) Error=@(args => OnError(args, "FileInput")) />
+                    </RadzenCard>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <RadzenButton Variant="Variant.Outlined" Click=@Retorno Text="Voltar" ButtonStyle="ButtonStyle.Primary" />
+
+            </div>
+            <div class="col-6">
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Salvar" ButtonStyle="ButtonStyle.Primary" Style="float:right" />
+            </div>
+        </div>
+    </RadzenCard>
+</EditForm>
+
+

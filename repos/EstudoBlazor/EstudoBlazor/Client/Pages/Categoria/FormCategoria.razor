@@ -1,0 +1,35 @@
+﻿<EditForm Model="@Categoria" OnValidSubmit="@SubmitCategoria">
+    <DataAnnotationsValidator />
+    <RadzenCard>
+        <div class="row">
+            <h3>@Titulo</h3>
+        </div>
+        <h4>subi</h4>
+        <div class="row">
+            <div class="mb-3">
+                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">Nome</RadzenText>
+                <RadzenTextBox @bind-Value="@Categoria.Nome" id="nome" class="form-control" />
+                <ValidationMessage For="@(() => Categoria.Nome)" />
+
+            </div>
+            <div class="mb-3">
+                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">Descrição</RadzenText>
+                <RadzenTextBox @bind-Value="@Categoria.Descricao" id="descricao" class="form-control" />
+                <ValidationMessage For="@(() => Categoria.Descricao)" />
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <RadzenButton Variant="Variant.Outlined" Click=@Retorno Text="Voltar" ButtonStyle="ButtonStyle.Primary" />
+
+            </div>
+            <div class="col-6">
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Salvar" ButtonStyle="ButtonStyle.Primary" Style="float:right" />
+            </div>
+        </div>
+    </RadzenCard>
+</EditForm>
+
+

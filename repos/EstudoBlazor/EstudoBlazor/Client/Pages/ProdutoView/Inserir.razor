@@ -1,0 +1,20 @@
+﻿@page "/produto/inserir"
+<h3>Inserir</h3>
+
+<div class="container">
+    <div class="row mb-3">
+        <RadzenBreadCrumb>
+            <Template Context="item">
+                <RadzenBadge Text="@item.Text" IsPill="true" />
+            </Template>
+            <ChildContent>
+                <RadzenBreadCrumbItem Path="/" Text="Inicio" />
+                <RadzenBreadCrumbItem Path="/categoria" Text="Categoria" />
+                <RadzenBreadCrumbItem Path="/categoria/inserir" Text="Inserir" />
+            </ChildContent>
+        </RadzenBreadCrumb>
+    </div>
+
+    @*<FormCategoria Categoria="@categoria" Retorno="(() => Voltar())" Titulo="Inserir nova Categoria" SubmitCategoria="(() => InserirCategoria())"/>*@
+    <FormProduto Produto="@produto" Categorias="@Categorias" Retorno="(() => Voltar())" Titulo="Inserir novo Produto" SubmitProduto="(() => InserirProduto())" />
+</div>

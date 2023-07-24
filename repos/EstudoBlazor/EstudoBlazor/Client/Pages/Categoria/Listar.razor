@@ -1,0 +1,62 @@
+﻿@page "/categoria"
+
+@if (categorias == null)
+{
+    <div class="container">
+        <div class="col-12 align-content-center">
+            <Loading></Loading>
+        </div>
+    </div>
+
+}
+
+else
+{
+    <div class="container">
+
+        <div class="row mb-3">
+            <RadzenBreadCrumb>
+                <Template Context="item">
+                    <RadzenBadge Text="@item.Text" IsPill="true" />
+                </Template>
+                <ChildContent>
+                    <RadzenBreadCrumbItem Path="/" Text="Inicio" />
+                    <RadzenBreadCrumbItem Path="/categoria" Text="Categoria" />
+                </ChildContent>
+            </RadzenBreadCrumb>
+        </div>
+
+        <RadzenCard>
+            <div class="row mt-3">
+                <h3>Listar Categoria</h3>
+            </div>
+            <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" AllowSorting="true" PageSize="5" AllowPaging="true"
+                            ShowPagingSummary="true" PagingSummaryFormat="@pagingSummaryFormat" Data="@categorias" TItem="Categoria" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or"
+                            EmptyText="Nenhuma categoria cadastrada">
+                <Columns>
+                    <RadzenDataGridColumn TItem="Categoria" Property="Id" Filterable="false" Title="ID" Frozen="true" Width="40px" TextAlign="TextAlign.Center" />
+                    <RadzenDataGridColumn TItem="Categoria" Property="Nome" Title="Nome" Frozen="true" Width="160px" />
+                    <RadzenDataGridColumn TItem="Categoria" Property="Descricao" Title="Descrição" Width="auto" />
+                    <RadzenDataGridColumn TItem="Categoria" Property="Id" Title="Ações" Filterable="false">
+                        <Template Context="data">
+                            <RadzenButton ButtonStyle="ButtonStyle.Primary" Variant="Variant.Flat" Text="Editar" Click="(() => EditarCategoria(data.Id))" />
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Text="Deletar" Click="(() => Deletar(data.Id))" />
+                        </Template>
+                    </RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGrid>
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <RadzenButton Click=@(() => NavegarParaIserir()) Text="Cadastrar" ButtonStyle="ButtonStyle.Primary" Style="float:right" />
+                </div>
+            </div>
+        </RadzenCard>
+    </div>
+}
+
+
+
+
+
+

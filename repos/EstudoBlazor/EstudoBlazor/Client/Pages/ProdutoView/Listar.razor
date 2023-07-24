@@ -1,0 +1,65 @@
+﻿@page "/produtos"
+
+
+
+
+@if (Produtos == null)
+{
+    <div class="container">
+        <div class="col-12 align-content-center">
+            <Loading></Loading>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="container">
+
+        <div class="row mb-3">
+            <RadzenBreadCrumb>
+                <Template Context="item">
+                    <RadzenBadge Text="@item.Text" IsPill="true" />
+                </Template>
+                <ChildContent>
+                    <RadzenBreadCrumbItem Path="/" Text="Inicio" />
+                    <RadzenBreadCrumbItem Path="/produtos" Text="Produtos" />
+                </ChildContent>
+            </RadzenBreadCrumb>
+        </div>
+
+
+
+        <RadzenCard>
+            <div class="row mt-3">
+                <h3>Listar Produtos</h3>
+            </div>
+            <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" AllowSorting="true" PageSize="5" AllowPaging="true"
+                            ShowPagingSummary="true" PagingSummaryFormat="@pagingSummaryFormat" Data="@Produtos" TItem="Produto" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or"
+                            EmptyText="Nenhum produto cadastrado">
+                <Columns>
+                    <RadzenDataGridColumn TItem="Produto" Property="Id" Filterable="false" Title="ID" Frozen="true" Width="40px" TextAlign="TextAlign.Center" />
+                    <RadzenDataGridColumn TItem="Produto" Property="Nome" Title="Nome" Frozen="true" Width="160px" />
+                    <RadzenDataGridColumn TItem="Produto" Property="Categoria" Title="Categoria" Width="auto">
+                        <Template Context="data">
+                            @data.Categoria.Nome
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="Produto" Property="Preco" Title="Preço" Width="auto" FormatString="{0:C}" />
+                    <RadzenDataGridColumn TItem="Produto" Property="Id" Title="Ações" Filterable="false">
+                        <Template Context="data">
+                            <RadzenButton ButtonStyle="ButtonStyle.Primary" Variant="Variant.Flat" Text="Editar" Click="(() => EditarProduto(data.Id))" />
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Text="Deletar" Click="(() => Deletar(data.Id))" />
+                        </Template>
+                    </RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGrid>
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <RadzenButton Click=@(() => NavegarParaIserir()) Text="Cadastrar" ButtonStyle="ButtonStyle.Primary" Style="float:right" />
+                </div>
+            </div>
+        </RadzenCard>
+    </div>
+}

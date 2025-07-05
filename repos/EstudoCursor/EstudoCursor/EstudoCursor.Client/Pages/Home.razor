@@ -1,0 +1,58 @@
+@page "/"
+
+<PageTitle>Sistema de Cadastro de Pessoas</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudPaper Class="pa-6">
+        <MudText Typo="Typo.h3" Class="mb-4" Color="Color.Primary">
+            Bem-vindo ao Sistema de Cadastro de Pessoas
+        </MudText>
+        
+        <MudText Typo="Typo.body1" Class="mb-4">
+            Este sistema permite gerenciar o cadastro de pessoas com as seguintes funcionalidades:
+        </MudText>
+        
+        <MudList>
+            <MudListItem Icon="@Icons.Material.Filled.Add">
+                <MudText>Cadastrar novas pessoas</MudText>
+            </MudListItem>
+            <MudListItem Icon="@Icons.Material.Filled.List">
+                <MudText>Listar pessoas cadastradas</MudText>
+            </MudListItem>
+            <MudListItem Icon="@Icons.Material.Filled.Edit">
+                <MudText>Editar dados de pessoas</MudText>
+            </MudListItem>
+            <MudListItem Icon="@Icons.Material.Filled.Delete">
+                <MudText>Remover pessoas do cadastro</MudText>
+            </MudListItem>
+        </MudList>
+        
+        <MudDivider Class="my-4" />
+        
+        <MudText Typo="Typo.h6" Class="mb-3">Campos obrigatórios:</MudText>
+        <MudList Dense="true">
+            <MudListItem>
+                <MudText><strong>Nome:</strong> Nome completo da pessoa</MudText>
+            </MudListItem>
+            <MudListItem>
+                <MudText><strong>Data de Nascimento:</strong> Data de nascimento (mínimo 18 anos)</MudText>
+            </MudListItem>
+            <MudListItem>
+                <MudText><strong>E-mail:</strong> Endereço de e-mail válido</MudText>
+            </MudListItem>
+            <MudListItem>
+                <MudText><strong>CPF:</strong> CPF no formato 000.000.000-00</MudText>
+            </MudListItem>
+        </MudList>
+        
+        <MudDivider Class="my-4" />
+        
+        <MudButton Variant="Variant.Filled" 
+                   Color="Color.Primary" 
+                   Href="pessoas"
+                   StartIcon="@Icons.Material.Filled.People"
+                   Size="Size.Large">
+            Acessar Cadastro de Pessoas
+        </MudButton>
+    </MudPaper>
+</MudContainer> 

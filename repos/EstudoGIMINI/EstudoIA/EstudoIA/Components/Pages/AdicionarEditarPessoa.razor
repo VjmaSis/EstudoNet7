@@ -1,0 +1,71 @@
+@page "/pessoas/adicionar"
+@page "/pessoas/editar/{id:int}"
+@using EstudoIA.Models
+@using EstudoIA.Services
+@inject IPessoaService PessoaService
+@inject NavigationManager NavigationManager
+
+<h1>@Titulo</h1>
+
+<EditForm Model="@pessoa" OnValidSubmit="Salvar">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Nome</label>
+        <InputText @bind-Value="pessoa.Nome" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Sobrenome</label>
+        <InputText @bind-Value="pessoa.Sobrenome" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <InputText @bind-Value="pessoa.Email" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Data de Nascimento</label>
+        <InputDate @bind-Value="pessoa.DataNascimento" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="/pessoas" class="btn btn-link">Cancelar</a>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Pessoa pessoa = new Pessoa();
+    private string Titulo = "Adicionar Pessoa";
+
+    protected override void OnInitialized()
+    {
+        if (Id != 0)
+        {
+            Titulo = "Editar Pessoa";
+            var pessoaExistente = PessoaService.GetPessoaById(Id);
+            if (pessoaExistente != null)
+            {
+                pessoa = pessoaExistente;
+            }
+        }
+    }
+
+    private void Salvar()
+    {
+        if (Id != 0)
+        {
+            PessoaService.UpdatePessoa(pessoa);
+        }
+        else
+        {
+            PessoaService.AddPessoa(pessoa);
+        }
+
+        NavigationManager.NavigateTo("/pessoas");
+    }
+}

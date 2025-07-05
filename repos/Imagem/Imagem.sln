@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34616.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imagem", "Imagem\Imagem.csproj", "{69350F43-6BFF-4676-9F99-2556C7FC0534}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69350F43-6BFF-4676-9F99-2556C7FC0534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69350F43-6BFF-4676-9F99-2556C7FC0534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69350F43-6BFF-4676-9F99-2556C7FC0534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69350F43-6BFF-4676-9F99-2556C7FC0534}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {986E5007-0717-49D3-8708-4692555E76E0}
+	EndGlobalSection
+EndGlobal

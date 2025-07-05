@@ -1,0 +1,105 @@
+@using EstudoCursor.Client.Domain.Entities
+@using System.ComponentModel.DataAnnotations
+
+<MudDialog @bind-IsVisible="IsVisible" Options="dialogOptions">
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            @(Pessoa?.Id == Guid.Empty ? "Nova Pessoa" : "Editar Pessoa")
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <EditForm Model="@Pessoa" OnValidSubmit="Salvar">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="Pessoa.Nome"
+                                 Label="Nome *"
+                                 Required="true"
+                                 RequiredError="Nome é obrigatório"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense" />
+                </MudItem>
+                
+                <MudItem xs="12" sm="6">
+                    <MudDatePicker @bind-Date="Pessoa.DataNascimento"
+                                  Label="Data de Nascimento *"
+                                  Required="true"
+                                  RequiredError="Data de nascimento é obrigatória"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"
+                                  DateFormat="dd/MM/yyyy"
+                                  MaxDate="@DateTime.Now.AddYears(-18)" />
+                </MudItem>
+                
+                <MudItem xs="12" sm="6">
+                    <MudTextField @bind-Value="Pessoa.Email"
+                                 Label="E-mail *"
+                                 Required="true"
+                                 RequiredError="E-mail é obrigatório"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 InputType="InputType.Email" />
+                </MudItem>
+                
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="Pessoa.CPF"
+                                 Label="CPF *"
+                                 Required="true"
+                                 RequiredError="CPF é obrigatório"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 Mask="000.000.000-00"
+                                 HelperText="Formato: 000.000.000-00" />
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancelar">Cancelar</MudButton>
+        <MudButton Color="Color.Primary" 
+                   Variant="Variant.Filled" 
+                   OnClick="Salvar"
+                   Disabled="@(!IsFormValid())">
+            Salvar
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [Parameter] public Pessoa? Pessoa { get; set; }
+    [Parameter] public EventCallback<Pessoa> OnSalvar { get; set; }
+    [Parameter] public EventCallback OnCancelar { get; set; }
+    
+    private bool IsVisible { get; set; } = true;
+    private DialogOptions dialogOptions = new() { CloseOnEscapeKey = true };
+
+    private async Task Salvar()
+    {
+        if (Pessoa != null && IsFormValid())
+        {
+            await OnSalvar.InvokeAsync(Pessoa);
+        }
+    }
+
+    private async Task Cancelar()
+    {
+        await OnCancelar.InvokeAsync();
+    }
+
+    private bool IsFormValid()
+    {
+        if (Pessoa == null) return false;
+
+        var context = new ValidationContext(Pessoa);
+        var results = new List<ValidationResult>();
+        
+        return Validator.TryValidateObject(Pessoa, context, results, true) &&
+               !string.IsNullOrWhiteSpace(Pessoa.Nome) &&
+               !string.IsNullOrWhiteSpace(Pessoa.Email) &&
+               !string.IsNullOrWhiteSpace(Pessoa.CPF) &&
+               Pessoa.DataNascimento != default &&
+               Pessoa.DataNascimento <= DateTime.Now.AddYears(-18);
+    }
+} 

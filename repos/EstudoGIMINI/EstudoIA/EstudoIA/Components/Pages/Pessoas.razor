@@ -1,0 +1,59 @@
+@page "/pessoas"
+@using EstudoIA.Models
+@using EstudoIA.Services
+@inject IPessoaService PessoaService
+
+<h1>Pessoas</h1>
+
+<p>Esta página cadastra pessoas.</p>
+
+<a href="/pessoas/adicionar" class="btn btn-primary">Adicionar Pessoa</a>
+
+@if (pessoas == null)
+{
+    <p><em>Carregando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Email</th>
+                <th>Data de Nascimento</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pessoa in pessoas)
+            {
+                <tr>
+                    <td>@pessoa.Nome</td>
+                    <td>@pessoa.Sobrenome</td>
+                    <td>@pessoa.Email</td>
+                    <td>@pessoa.DataNascimento.ToShortDateString()</td>
+                    <td>
+                        <a href="/pessoas/editar/@pessoa.Id" class="btn btn-sm btn-primary">Editar</a>
+                        <button class="btn btn-sm btn-danger" @onclick="() => RemoverPessoa(pessoa.Id)">Remover</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Pessoa>? pessoas;
+
+    protected override void OnInitialized()
+    {
+        pessoas = PessoaService.GetPessoas();
+    }
+
+    private void RemoverPessoa(int id)
+    {
+        PessoaService.DeletePessoa(id);
+        pessoas = PessoaService.GetPessoas();
+    }
+}
